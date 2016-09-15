@@ -1,11 +1,14 @@
 #toolbar {
     float: left;
     margin: 8px;
+    font-size:20px;
 }
 
 #toolbar > ul {
     list-style-type: none;
-    padding: 0px;
+    padding: 8px;
+    border: solid 1px black;
+    border-radius: 8px;
 }
 
 #tbody > tr > td {
@@ -28,6 +31,9 @@
 #tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child):empty::before {
     content: "(empty)";
     color: lightgray;
+}
+#tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child):empty.hidden::before {
+    content: "";
 }
 
 

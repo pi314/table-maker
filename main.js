@@ -11,6 +11,10 @@ $(function () {
         'rgb(255,0,255)'
     ];
 
+    $('#toggle-empty').click(function () {
+        $('#tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child):empty').toggleClass('hidden');
+    });
+
     var content = [
         [{'content': '8'}, {'content': '1'}, {'content': '6'}],
         [{'content': '3'}, {'content': ''}, {'content': '7'}],

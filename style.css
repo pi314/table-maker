@@ -1,0 +1,78 @@
+#toolbar {
+    float: left;
+    margin: 8px;
+}
+
+#toolbar > ul {
+    list-style-type: none;
+    padding: 0px;
+}
+
+#tbody > tr > td {
+    text-align: center;
+    font-size:20px;
+}
+
+#tbody > tr > td:first-child {
+    min-width: 50px;
+    background: lightgray;
+}
+
+#tbody > tr:first-child > td {
+    min-width: 50px;
+    background: lightgray;
+}
+
+
+/* empty cells */
+#tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child):empty::before {
+    content: "(empty)";
+    color: lightgray;
+}
+
+
+/* padding row/col */
+#tbody > tr:first-child > td:first-child,
+#tbody > tr:nth-child(2) > td,
+#tbody > tr > td:nth-child(2) {
+    background: transparent;
+    color: transparent;
+}
+
+#tbody > tr:first-child > td:first-child::before,
+#tbody > tr:nth-child(2) > td::before,
+#tbody > tr > td:nth-child(2)::before {
+    content: "._.";
+}
+
+
+/* row/col operators */
+#tbody > tr:first-child > td,
+#tbody > tr > td:first-child {
+    font-family: monospace;
+}
+
+#tbody > tr:first-child > td:nth-child(n+3):hover,
+#tbody > tr:nth-child(n+3) > td:first-child:hover {
+    background: gray;
+}
+
+#tbody > tr:first-child > td:last-child::before {
+    /* col adder */
+    content: "+";
+}
+
+#tbody > tr:last-child > td:first-child::before {
+    /* row adder */
+    content: "+";
+}
+
+#tbody > tr:first-child > td:nth-child(n+3):not(:last-child)::before {
+    /* col selector */
+    content: "v";
+}
+
+#tbody > tr:nth-child(n+3):not(:last-child) > td:first-child::before {
+    /* row selector */
+    content: ">";
+}

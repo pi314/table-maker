@@ -11,21 +11,50 @@ $(function () {
         'rgb(255,0,255)'
     ];
 
-    $('#toggle-empty').click(function () {
-        $('#tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child):empty').toggleClass('hidden');
-    });
-
     var content = [
         [{'content': '8'}, {'content': '1'}, {'content': '6'}],
         [{'content': '3'}, {'content': ''}, {'content': '7'}],
         [{'content': '4'}, {'content': '9'}, {'content': '2'}],
     ];
 
-    $('#tbody').on('click', 'tr:nth-child(n+3) > td:nth-child(n+3)', function () {
+    $('#toggle-empty').click(function () {
+        var empty_cells = $('#tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child):empty');
+        if ($('.hidden').length == 0) {
+            empty_cells.addClass('hidden');
+        } else {
+            empty_cells.removeClass('hidden');
+        }
+    });
+
+    $('#dump-json').click(function () {
+        $('#output').text(JSON.stringify(content, null, '  '));
+    });
+
+    $(document).click(function () {
+        var editing = $('#tbody textarea');
+        console.log(editing);
+        /* write all textarea back */
+        for (var i = 0; i < editing.length; i++) {
+            var textarea = $(editing[i]);
+            var row = $(textarea.parent().parent()).prevAll().length - 2;
+            var col = $(textarea.parent()).prevAll().length - 2;
+            console.log(textarea, row, col);
+            content[row][col].content = textarea.val();
+            $(textarea.parent()).html(content[row][col].content.replace(/\n/g, '<br>'));
+        }
+        return false;
+    });
+
+    $('#tbody').on('click', 'textarea', function () {
+        /* prevent bluring on click */
+        return false;
+    });
+    $('#tbody').on('click', 'tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child)', function () {
         console.log('user cell');
         var row = $($(this).parent()).prevAll().length - 2;
         var col = $(this).prevAll().length - 2;
-        console.log(row, col, content[row][col].content);
+        $(this).html('<textarea>'+ content[row][col].content +'</textarea>');
+        $(this).find('textarea').focus();
         return false;
     });
 
@@ -36,6 +65,7 @@ $(function () {
             content[i].push({'content': ''});
         }
         $('#tbody > tr').append('<td></td>');
+        return false;
     });
 
     $('#tbody').on('click', 'tr:last-child > td:first-child', function () {
@@ -47,16 +77,19 @@ $(function () {
         }
         content.push(new_row);
         $('#tbody').append('<tr>'+ '<td></td>'.repeat(content[0].length + 3) +'</tr>');
+        return false;
     });
 
     $('#tbody').on('click', 'tr:first-child > td:nth-child(n+3):not(:last-child)', function () {
         var col = $(this).prevAll().length - 2;
         console.log('col selector:', col);
+        return false;
     });
 
     $('#tbody').on('click', 'tr:nth-child(n+3):not(:last-child) > td:first-child', function () {
         var row = $($(this).parent()).prevAll().length - 2;
         console.log('row selector:', row);
+        return false;
     });
 
     render(content);

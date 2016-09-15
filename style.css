@@ -102,3 +102,8 @@
     cursor: pointer;
     border: solid 1px black;
 }
+
+textarea, #output {
+    font-family: monospace;
+    white-space: pre;
+}

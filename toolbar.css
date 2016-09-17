@@ -1,0 +1,28 @@
+#toolbar {
+    float: left;
+    margin: 8px;
+    font-size:20px;
+}
+
+#toolbar > ul {
+    list-style-type: none;
+    padding: 8px;
+    border: solid 1px black;
+    border-radius: 8px;
+}
+
+#toolbar > ul > li {
+    height: 40px;
+    border: solid 1px transparent;
+    background-repeat: none;
+}
+
+#toolbar > ul > li:hover {
+    border: solid 1px black;
+    cursor: pointer;
+}
+
+#toggle-empty {
+    background-image: url(./toggle-empty.svg);
+    background-repeat: no-repeat;
+}

@@ -1,6 +1,6 @@
 <svg version="1.1"
     baseProfile="full"
-    width="40" height="40"
+    width="60" height="40"
     xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="gradient1">
@@ -9,6 +9,6 @@
     </linearGradient>
   </defs>
   <text text-anchor="start" x="5" y="25" fill="lightgray">(empty)</text>
-  <rect width="40" height="40" fill="url(#gradient1)"/>
-  <rect width="40" height="40" fill="transparent" stroke="black"/>
+  <rect width="60" height="40" fill="url(#gradient1)"/>
+  <rect width="60" height="40" fill="transparent" stroke="black"/>
 </svg>

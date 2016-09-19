@@ -9,6 +9,5 @@
     </linearGradient>
   </defs>
   <text text-anchor="start" x="5" y="25" fill="lightgray">(empty)</text>
-  <rect width="60" height="40" fill="url(#gradient1)"/>
-  <rect width="60" height="40" fill="transparent" stroke="black"/>
+  <rect width="60" height="40" fill="url(#gradient1)" stroke="black"/>
 </svg>

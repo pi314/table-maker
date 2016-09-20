@@ -30,3 +30,7 @@
 #dump-json {
     background-image: url(./dump-json.svg);
 }
+
+#dump-rst {
+    background-image: url(./dump-rst.svg);
+}

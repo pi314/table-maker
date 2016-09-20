@@ -8,6 +8,6 @@
       <stop offset="100%" stop-color="white"/>
     </linearGradient>
   </defs>
-  <text text-anchor="start" x="5" y="25" fill="lightgray">(empty)</text>
+  <text text-anchor="start" x="5" y="25" fill="black">(empty)</text>
   <rect width="60" height="40" fill="url(#gradient1)" stroke="black"/>
 </svg>

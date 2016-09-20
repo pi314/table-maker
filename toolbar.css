@@ -13,8 +13,9 @@
 
 #toolbar > ul > li {
     height: 40px;
+    min-width: 60px;
     border: solid 1px transparent;
-    background-repeat: none;
+    background-repeat: no-repeat;
 }
 
 #toolbar > ul > li:hover {
@@ -24,5 +25,8 @@
 
 #toggle-empty {
     background-image: url(./toggle-empty.svg);
-    background-repeat: no-repeat;
+}
+
+#dump-json {
+    background-image: url(./dump-json.svg);
 }

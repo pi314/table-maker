@@ -5,10 +5,22 @@
   <defs>
   </defs>
   <rect width="60" height="40" fill="transparent" stroke="black"/>
-  <path d="M 5 5, m 0 7, v 16, h 15, v 5, l 12 -13, l -12 -13, v 5, h -15" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 5 5, m 25 0, v 11, m 0 8, v 11, h 25, v -25, h -5, v -5, l 5 5, m -5 -5, h -20" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 5 5, m 28 10, h 4, m -1 0, v 8, a 2 2 0 1 1 -4 0" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 5 5, m 33 10, m 4 2, a 2 2.5 0 1 0 -2 3, a 2 2.5 0 1 1 -2 3" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 5 5, m 38 10, m 2 0, a 2 5 0 1 0 0 10, a 2 5 0 1 0 0 -10" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 5 5, m 44 10, v 10, m 0 -10, l 4 10, v -10" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- paper -->
+  <path d="M 8 5, v 30, h 25, v -5, m 0 -16, v -4, h -5, v -5, l 5 5, m -5 -5, h -20" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- arrow -->
+  <path d="M 8 5, m 14 9, v 16, h 15, v 5, l 17 -13, l -17 -13, v 5, h -15" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- J -->
+  <path d="M 8 5, m 17 12, h 4, m -1 0, v 8, a 2 2 0 1 1 -4 0" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- S -->
+  <path d="M 8 5, m 22 12, m 4 2, a 2 2.5 0 1 0 -2 3, a 2 2.5 0 1 1 -2 3" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- O -->
+  <path d="M 8 5, m 27 12, m 2 0, a 2 5 0 1 0 0 10, a 2 5 0 1 0 0 -10" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- N -->
+  <path d="M 8 5, m 33 12, v 10, m 0 -10, l 4 10, v -10" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

@@ -45,3 +45,7 @@
 #export-rst {
     background-image: url(./export-rst.svg);
 }
+
+#import-json {
+    background-image: url(./import-json.svg);
+}

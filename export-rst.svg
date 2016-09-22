@@ -2,8 +2,6 @@
     baseProfile="full"
     width="60" height="40"
     xmlns="http://www.w3.org/2000/svg">
-  <defs>
-  </defs>
   <rect width="60" height="40" fill="transparent" stroke="black"/>
 
   <!-- paper -->

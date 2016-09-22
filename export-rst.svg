@@ -10,7 +10,12 @@
   <!-- arrow -->
   <path d="M 8 5, m 14 9, v 16, h 15, v 5, l 17 -13, l -17 -13, v 5, h -15" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
 
-  <path d="M 5 5, m 20 12, v 10, m 0 -10, h 3, a 3 3 0 1 1 0 6, h -3, m 3 0, l 3 4" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 5 5, m 28 12, m 6 3, a 3 2.5 0 1 0 -3 2, a 3 2.5 0 1 1 -3 2" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 5 5, m 35 12, h 6, m -3 0, v 10" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- R -->
+  <path d="M 25 17, v 10, m 0 -10, h 3, a 3 3 0 1 1 0 6, h -3, m 3 0, l 3 4" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- S -->
+  <path d="M 33 17, m 6 3, a 3 2.5 0 1 0 -3 2, a 3 2.5 0 1 1 -3 2" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- T -->
+  <path d="M 40 17, h 6, m -3 0, v 10" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

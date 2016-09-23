@@ -38,6 +38,10 @@
     background-image: url(./toggle-empty.svg);
 }
 
+#toggle-bold {
+    background-image: url(./toggle-bold.svg);
+}
+
 #export-json {
     background-image: url(./export-json.svg);
 }

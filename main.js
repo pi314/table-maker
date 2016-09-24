@@ -27,7 +27,7 @@ $(function () {
     });
 
     $('#export-json').click(function () {
-        $('#output').text(JSON.stringify(content, null, '  '));
+        $('#output').text(JSON.stringify(content));
     });
 
     $(document).click(function () {

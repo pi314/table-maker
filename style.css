@@ -27,14 +27,13 @@
 
 
 /* padding row/col */
-#tbody > tr:first-child > td:first-child,
+/* #tbody > tr:first-child > td:first-child, */
 #tbody > tr:nth-child(2) > td,
 #tbody > tr > td:nth-child(2) {
     background: transparent;
     color: transparent;
 }
 
-#tbody > tr:first-child > td:first-child::before,
 #tbody > tr:nth-child(2) > td::before,
 #tbody > tr > td:nth-child(2)::before {
     content: "._.";
@@ -47,6 +46,7 @@
     font-family: monospace;
 }
 
+#tbody > tr:first-child > td:first-child:hover,
 #tbody > tr:first-child > td:nth-child(n+3):hover,
 #tbody > tr:nth-child(n+3) > td:first-child:hover {
     background: gray;
@@ -61,6 +61,11 @@
 #tbody > tr:last-child > td:first-child::before {
     /* row adder */
     content: "+";
+}
+
+#tbody > tr:first-child > td:first-child::before {
+    /* table selector */
+    content: "*";
 }
 
 #tbody > tr:first-child > td:nth-child(n+3):not(:last-child)::before {

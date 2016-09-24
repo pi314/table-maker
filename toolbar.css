@@ -24,7 +24,12 @@
     cursor: pointer;
 }
 
-#toolbar > ul > li:hover::after {
+#toolbar > ul > li > div {
+    display: none;
+}
+
+#toolbar > ul > li:hover > div {
+    display: block;
     position: absolute;
     left: 65px;
     content: attr(data-tip);

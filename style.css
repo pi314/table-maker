@@ -1,3 +1,21 @@
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#workspace {
+    height: 100%;
+    padding: 8px;
+    padding-left: 84px;
+}
+
 #tbody > tr > td,
 #tbody > tr > td > textarea {
     text-align: center;
@@ -88,6 +106,7 @@
 }
 
 textarea, #output {
+    max-width: 100%;
     font-family: monospace;
     font-size:20px;
     white-space: pre;

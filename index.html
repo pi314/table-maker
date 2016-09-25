@@ -6,23 +6,23 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="toolbar.css">
     <script src="jquery-3.1.0.min.js"></script>
+    <script src="tools.js"></script>
     <script src="main.js"></script>
   </head>
   <body>
-    <div id="toolbar">
-      <ul>
+    <div id="workspace">
+      <ul id="toolbar">
         <li id="toggle-empty"><div>Show/hide the (empty) indicator</div></li>
         <li id="toggle-bold"><div>Toggle Bold</div></li>
         <li id="export-json"><div>Export to JSON</div></li>
         <li id="export-rst"><div>Export to RST</div></li>
         <li id="import-json"><div>Import from JSON</div></li>
       </ul>
-    </div>
-    <div id="workspace">
       <table>
         <tbody id="tbody">
         </tbody>
       </table>
+      <div style="clear:left;"></div>
     </div>
     <hr>
     <div id="output"></div>

@@ -17,19 +17,6 @@ $(function () {
         [{'content': '4'}, {'content': '9'}, {'content': '2'}],
     ];
 
-    $('#toggle-empty').click(function () {
-        var empty_cells = $('#tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child):empty');
-        if ($('.hidden').length == 0) {
-            empty_cells.addClass('hidden');
-        } else {
-            empty_cells.removeClass('hidden');
-        }
-    });
-
-    $('#export-json').click(function () {
-        $('#output').text(JSON.stringify(content));
-    });
-
     $(document).click(function () {
         var editing = $('#tbody textarea');
         console.log(editing);
@@ -92,8 +79,10 @@ $(function () {
         return false;
     });
 
+    init_tools(content);
     render(content);
 });
+
 
 function render (content) {
     var row = content.length;

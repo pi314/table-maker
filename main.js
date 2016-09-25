@@ -100,7 +100,7 @@ function render (content) {
     var col = Math.max.apply(null, content.map(function (elem) {
         return elem.length;
     }));
-    /* append col operator and an padding row */
+    /* append col operator and a padding row */
     $('#tbody').append('<tr>'+ '<td></td>'.repeat(col + 3) +'</tr>');
     $('#tbody').append('<tr>'+ '<td></td>'.repeat(col + 3) +'</tr>');
     for (var i = 0; i < row; i++) {

@@ -6,10 +6,11 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="toolbar.css">
     <script src="jquery-3.1.0.min.js"></script>
+    <script src="vue.min.js"></script>
     <script src="tools.js"></script>
     <script src="main.js"></script>
   </head>
-  <body>
+  <body id="root" onload="main()">
     <ul id="toolbar">
       <li id="toggle-empty"><div>Show/hide the (empty) indicator</div></li>
       <li id="toggle-bold"><div>Toggle Bold</div></li>
@@ -20,6 +21,17 @@
     <div id="workspace">
       <table>
         <tbody id="tbody">
+          <tr v-for="i in 2">
+            <td v-for="i in table[0].length + 3"></td>
+          </tr>
+          <tr v-for="row in table">
+            <td></td><td></td>
+            <td v-for="cell in row">{{ cell.content }}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td v-for="i in table[0].length + 3"></td>
+          </tr>
         </tbody>
       </table>
       <hr>

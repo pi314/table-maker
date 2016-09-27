@@ -1,13 +1,31 @@
+Vue.directive('focus', {
+    bind: function () {
+        var object = this.el;
+        Vue.nextTick(function() {
+            object.focus();
+        });
+    }
+});
+
+
 function main () {
     vm = new Vue({
-        el: '#root',
+        el: '#app',
         data: {
             table: [
-                [{'content': '8'}, {'content': '1'}, {'content': '6'}],
-                [{'content': '3'}, {'content': ''}, {'content': '7'}],
-                [{'content': '4'}, {'content': '9'}, {'content': '2'}],
+                [{content: 'apple', editing: false}],
+                [{content: 'pen', editing: false}],
+                [{content: 'pineapple', editing: false}],
             ],
-        }
+        },
+        methods: {
+            edit: function (cell) {
+                cell.editing = true;
+            },
+            edit_done: function (cell) {
+                cell.editing = false;
+            },
+        },
     });
 
     // $(document).click(function () {

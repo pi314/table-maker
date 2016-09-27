@@ -10,7 +10,7 @@
     <script src="tools.js"></script>
     <script src="main.js"></script>
   </head>
-  <body id="root" onload="main()">
+  <body id="app" onload="main()">
     <ul id="toolbar">
       <li id="toggle-empty"><div>Show/hide the (empty) indicator</div></li>
       <li id="toggle-bold"><div>Toggle Bold</div></li>
@@ -26,7 +26,12 @@
           </tr>
           <tr v-for="row in table">
             <td></td><td></td>
-            <td v-for="cell in row">{{ cell.content }}</td>
+            <td v-for="cell in row" @click="edit(cell)">
+              <textarea v-if="cell.editing" v-model="cell.content"
+                        v-focus @blur="edit_done(cell)"
+                        placeholder="(empty)"></textarea>
+              <div v-else>{{ cell.content }}</div>
+            </td>
             <td></td>
           </tr>
           <tr>

@@ -33,17 +33,6 @@ body {
 }
 
 
-/* empty cells */
-#tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child):empty::before {
-    content: "(empty)";
-    color: lightgray;
-}
-
-#tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child):empty.hidden::before {
-    content: "";
-}
-
-
 /* padding row/col */
 /* #tbody > tr:first-child > td:first-child, */
 #tbody > tr:nth-child(2) > td,
@@ -96,6 +85,7 @@ body {
     content: ">";
 }
 
+
 /* user table */
 #tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child) {
     border: solid 1px transparent;
@@ -104,6 +94,21 @@ body {
     cursor: pointer;
     border: solid 1px black;
 }
+
+#tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child) > div {
+    white-space: pre;
+}
+
+
+/* empty cells */
+#tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child) > div:empty::before {
+    content: "(empty)";
+    color: lightgray;
+}
+#tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child) > div:empty.hidden::before {
+    content: "";
+}
+
 
 textarea, #output {
     max-width: 100%;

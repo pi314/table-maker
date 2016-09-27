@@ -12,7 +12,7 @@
   </head>
   <body id="app" onload="main()">
     <ul id="toolbar">
-      <li id="toggle-empty"><div>Show/hide the (empty) indicator</div></li>
+      <li id="toggle-empty" @click="toggle_empty"><div>Show/hide the (empty) indicator</div></li>
       <li id="toggle-bold"><div>Toggle Bold</div></li>
       <li id="export-json"><div>Export to JSON</div></li>
       <li id="export-rst"><div>Export to RST</div></li>
@@ -33,8 +33,8 @@
             <td v-for="cell in row" @click="edit(cell)">
               <textarea v-if="cell.editing" v-model="cell.content"
                         v-focus @blur="edit_done(cell)"
-                        placeholder="(empty)"></textarea>
-              <div v-else>{{ cell.content }}</div>
+                        placeholder="{{ show_empty ? '(empty)' : '' }}"></textarea>
+              <div v-else v-bind:class="{'empty-prompt': show_empty}">{{ cell.content }}</div>
             </td>
             <td></td>
           </tr>

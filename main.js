@@ -17,6 +17,7 @@ function main () {
                 [{content: 'pen', editing: false}],
                 [{content: 'pineapple', editing: false}],
             ],
+            show_empty: true,
         },
         methods: {
             edit: function (cell) {
@@ -37,7 +38,10 @@ function main () {
                     new_row.push({content: '', editing: false});
                 }
                 this.table.push(new_row);
-            }
+            },
+            toggle_empty: function () {
+                this.show_empty = !this.show_empty;
+            },
         },
     });
 

@@ -90,6 +90,7 @@ body {
 #tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child) {
     border: solid 1px transparent;
 }
+
 #tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child):hover {
     cursor: pointer;
     border: solid 1px black;
@@ -97,6 +98,11 @@ body {
 
 #tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child) > div {
     white-space: pre;
+}
+
+#tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child) > textarea {
+    font-family: monospace;
+    font-size:20px;
 }
 
 
@@ -110,7 +116,7 @@ body {
 }
 
 
-textarea, #output {
+#output {
     max-width: 100%;
     font-family: monospace;
     font-size:20px;

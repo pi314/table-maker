@@ -21,7 +21,11 @@
     <div id="workspace">
       <table>
         <tbody id="tbody">
-          <tr v-for="i in 2">
+          <tr>
+            <td v-for="i in table[0].length + 2"></td>
+            <td @click="add_col"></td>
+          </tr>
+          <tr>
             <td v-for="i in table[0].length + 3"></td>
           </tr>
           <tr v-for="row in table">
@@ -35,7 +39,8 @@
             <td></td>
           </tr>
           <tr>
-            <td v-for="i in table[0].length + 3"></td>
+            <td @click="add_row"></td>
+            <td v-for="i in table[0].length + 2"></td>
           </tr>
         </tbody>
       </table>

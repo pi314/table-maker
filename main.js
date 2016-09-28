@@ -50,10 +50,9 @@ function main () {
                 this.show_empty = !this.show_empty;
             },
             mousemove: function (evt) {
-                $('#mouse-icon').css({
-                    'top': evt.clientY - 25,
-                    'left': evt.clientX + 5,
-                });
+                var icon = document.getElementById('mouse-icon');
+                icon.style.top = (evt.clientY - 25) + 'px';
+                icon.style.left = (evt.clientX + 5) + 'px';
             },
         },
     });

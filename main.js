@@ -8,6 +8,12 @@ Vue.directive('focus', {
 });
 
 
+Vue.component('toggle-bold-icon', {
+    template: '#toggle-bold-icon',
+    replace: true,
+});
+
+
 function main () {
     vm = new Vue({
         el: '#app',
@@ -18,6 +24,7 @@ function main () {
                 [{content: 'pineapple', editing: false}],
             ],
             show_empty: true,
+            mouse_icon: 'toggle-bold-icon',
         },
         methods: {
             edit: function (cell) {
@@ -41,6 +48,12 @@ function main () {
             },
             toggle_empty: function () {
                 this.show_empty = !this.show_empty;
+            },
+            mousemove: function (evt) {
+                $('#mouse-icon').css({
+                    'top': evt.clientY - 25,
+                    'left': evt.clientX + 5,
+                });
             },
         },
     });

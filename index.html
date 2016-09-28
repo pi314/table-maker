@@ -9,8 +9,20 @@
     <script src="vue.min.js"></script>
     <script src="tools.js"></script>
     <script src="main.js"></script>
+    <script type="text/x-template" id="toggle-bold-icon">
+      <!-- normal B -->
+      <path d="M 5 10, h 6, a 4 4 0 1 1 0 8, a 5 5 0 1 1 0 10, h -6, m 1 0, v -18, m 0 8, h 5" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- bold B -->
+      <path d="M 43 10, h 6, a 4 4 0 1 1 0 8, a 5 5 0 1 1 0 10, h -6, m 1 0, v -18, m 0 8, h 5" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+
+      <!-- arrow -->
+      <path d="M 19 20, l 7 -7, v 4, h 7, v -4, l 7 7, l -7 7, v -4, h -7, v 4, l -7 -7" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <rect width="60" height="40" fill="transparent" stroke="black"/>
+    </script>
   </head>
-  <body id="app" onload="main()">
+  <body id="app" onload="main()" @mousemove="mousemove($event)">
     <ul id="toolbar">
       <li id="toggle-empty" @click="toggle_empty"><div>Show/hide the (empty) indicator</div></li>
       <li id="toggle-bold"><div>Toggle Bold</div></li>
@@ -47,5 +59,6 @@
       <hr>
       <div id="output"></div>
     </div>
+    <svg id="mouse-icon" viewbox="0 0 60 40" width="30" height="20"><toggle-bold-icon></toggle-bold-icon></svg>
   </body>
 </html>

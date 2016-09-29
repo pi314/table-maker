@@ -10,9 +10,9 @@
     <script src="tools.js"></script>
     <script src="main.js"></script>
   </head>
-  <body id="app" onload="main()" @mousemove="mousemove($event)">
+  <body id="app" onload="main()" @mousemove="mousemove($event)" @click="mouse_reset">
     <ul id="toolbar">
-      <li v-for="tool in tools" @click="select_tool(tool)">
+      <li v-for="tool in tools" @click.stop="select_tool(tool)">
         <svg viewbox="0 0 60 40" width="60" height="40">
           <partial :name="tool.id + '-toolbar'"></partial>
         </svg>
@@ -27,22 +27,22 @@
         <tbody id="tbody">
           <tr>
             <td v-for="i in table[0].length + 2"></td>
-            <td @click="add_col"></td>
+            <td @click.stop="add_col"></td>
           </tr>
           <tr>
             <td v-for="i in table[0].length + 3"></td>
           </tr>
           <tr v-for="row in table">
             <td></td><td></td>
-            <td v-for="cell in row" @click="edit(cell)">
+            <td v-for="cell in row" @click.stop="click_cell(cell)">
               <textarea v-if="cell.editing" v-model="cell.content"
-                        v-focus @blur="edit_done(cell)"></textarea>
+                        v-focus></textarea>
               <div v-else v-bind:class="{'empty-prompt': show_empty}">{{ cell.content }}</div>
             </td>
             <td></td>
           </tr>
           <tr>
-            <td @click="add_row"></td>
+            <td @click.stop="add_row"></td>
             <td v-for="i in table[0].length + 2"></td>
           </tr>
         </tbody>

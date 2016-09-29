@@ -24,6 +24,7 @@ function main () {
         show_empty: true,
         mouse_tool: '',
         tools: tools,
+        editing_cell: null,
     };
     data.ns = data;
 
@@ -31,18 +32,31 @@ function main () {
         el: '#app',
         data: data,
         methods: {
-            edit: function (cell) {
-                cell.editing = true;
+            click_cell: function (cell) {
+                this.edit_cell(cell);
             },
-            edit_done: function (cell) {
-                cell.editing = false;
+            edit_cell: function (cell) {
+                this.edit_reset();
+                this.editing_cell = cell;
+                this.editing_cell.editing = true;
+            },
+            edit_reset: function () {
+                if (this.editing_cell != null) {
+                    this.editing_cell.editing = false;
+                }
+            },
+            mouse_reset: function () {
+                this.edit_reset();
+                this.mouse_tool = '';
             },
             add_col: function () {
+                this.edit_reset();
                 for (var i = 0; i < this.table.length; i++) {
                     this.table[i].push({content: '', editing: false});
                 }
             },
             add_row: function () {
+                this.edit_reset();
                 var table_width = this.table[0].length;
                 var new_row = [];
                 for (var i = 0; i < table_width; i++) {

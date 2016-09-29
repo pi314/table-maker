@@ -1,4 +1,4 @@
-function init_tools (content) {
+function init_tools () {
     var toggle_empty_icon = '<rect width="60" height="40" fill="transparent" stroke="black"/><path d="M 7 7, h 4, m 10 0, h 4, m 10 0, h 4, m 10 0, h 4, m -46 10, h 4, m 10 0, h 4, m 10 0, h 4, m 10 0, h 4, m -46 10, h 4, m 10 0, h 4, m 10 0, h 4, m 10 0, h 4" fill="transparent" stroke="lightgray" stroke-linecap="round" stroke-linejoin="round"/>';
     var toggle_empty_tool = {
         id: 'toggle-empty',
@@ -14,10 +14,11 @@ function init_tools (content) {
     var toggle_bold_tool = {
         id: 'toggle-bold',
         description: 'Toggle bold',
-        select: function (ns) {
-        },
+        select: function (ns) {},
         work: function (ns, table, targets) {
-            console.log('toggle bold');
+            for (var i = 0; i < targets.length; i++) {
+                targets[i].bold = !targets[i].bold;
+            }
         },
         icon_toolbar: toggle_bold_icon,
         icon_mouse: toggle_bold_icon,

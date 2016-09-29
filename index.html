@@ -35,9 +35,9 @@
           <tr v-for="row in table">
             <td></td><td></td>
             <td v-for="cell in row" @click.stop="click_cell(cell)">
-              <textarea v-if="cell.editing" v-model="cell.content"
+              <textarea v-if="cell.editing" v-model="cell.text"
                         v-focus></textarea>
-              <div v-else v-bind:class="{'empty-prompt': show_empty}">{{ cell.content }}</div>
+              <div v-else v-bind:class="{'bold': cell.bold, 'empty-prompt': show_empty}">{{ cell.text }}</div>
             </td>
             <td></td>
           </tr>
@@ -51,7 +51,7 @@
       <div id="output"></div>
     </div>
     <div id="mouse-icon">
-      <svg v-for="tool in tools" v-show="mouse_tool == tool.id" viewbox="0 0 60 40" width="30" height="20">
+      <svg v-for="tool in tools" v-show="mouse_tool.id == tool.id" viewbox="0 0 60 40" width="30" height="20">
         {{{ tool.icon_mouse }}}
       </svg>
     </div>

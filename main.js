@@ -17,23 +17,31 @@ function main () {
 
     var data = {
         table: [
-            [{content: 'apple', editing: false}],
-            [{content: 'pen', editing: false}],
-            [{content: 'pineapple', editing: false}],
+            [{text: 'apple', editing: false, bold: false}],
+            [{text: 'pen', editing: false, bold: false}],
+            [{text: 'pineapple', editing: false, bold: false}],
         ],
         show_empty: true,
-        mouse_tool: '',
+        mouse_tool: null,
         tools: tools,
         editing_cell: null,
     };
     data.ns = data;
+
+    var new_cell = function () {
+        return {text: '', editing: false, bold: false};
+    };
 
     vm = new Vue({
         el: '#app',
         data: data,
         methods: {
             click_cell: function (cell) {
-                this.edit_cell(cell);
+                if (this.mouse_tool == null) {
+                    this.edit_cell(cell);
+                } else {
+                    this.mouse_tool.work(this.ns, this.table, [cell]);
+                }
             },
             edit_cell: function (cell) {
                 this.edit_reset();
@@ -47,12 +55,12 @@ function main () {
             },
             mouse_reset: function () {
                 this.edit_reset();
-                this.mouse_tool = '';
+                this.mouse_tool = null;
             },
             add_col: function () {
                 this.edit_reset();
                 for (var i = 0; i < this.table.length; i++) {
-                    this.table[i].push({content: '', editing: false});
+                    this.table[i].push(new_cell());
                 }
             },
             add_row: function () {
@@ -60,7 +68,7 @@ function main () {
                 var table_width = this.table[0].length;
                 var new_row = [];
                 for (var i = 0; i < table_width; i++) {
-                    new_row.push({content: '', editing: false});
+                    new_row.push(new_cell());
                 }
                 this.table.push(new_row);
             },
@@ -70,18 +78,15 @@ function main () {
                 icon.style.left = (evt.clientX + 5) + 'px';
             },
             select_tool: function (tool) {
-                if (this.mouse_tool == tool.id) {
-                    // user click on the same tool, put it down
-                    this.mouse_tool = '';
-                    return;
+                this.edit_reset();
+                if (!tool.work || tool == this.mouse_tool) {
+                    // the tool cannot be picked up
+                    // or the user selects the same tool
+                    // -> put it down
+                    this.mouse_reset();
                 } else {
-                    this.mouse_tool = '';
-                    if (tool.work) {
-                        // user pick up a new tool
-                        this.mouse_tool = tool.id;
-                    }
+                    this.mouse_tool = tool;
                 }
-                console.log('select_tool', tool.id);
                 tool.select(this.ns);
             },
         },

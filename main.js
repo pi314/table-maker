@@ -1,20 +1,15 @@
-Vue.directive('focus', {
-    bind: function () {
-        var object = this.el;
-        Vue.nextTick(function() {
-            object.focus();
-        });
-    }
-});
-
-
-Vue.component('toggle-bold-icon', {
-    template: '#toggle-bold-icon',
-    replace: true,
-});
-
-
 function main () {
+    Vue.directive('focus', {
+        bind: function () {
+            var object = this.el;
+            Vue.nextTick(function() {
+                object.focus();
+            });
+        }
+    });
+
+    Vue.partial('toggle-bold-icon', '<path d="M 5 10, h 6, a 4 4 0 1 1 0 8, a 5 5 0 1 1 0 10, h -6, m 1 0, v -18, m 0 8, h 5" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 43 10, h 6, a 4 4 0 1 1 0 8, a 5 5 0 1 1 0 10, h -6, m 1 0, v -18, m 0 8, h 5" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><path d="M 19 20, l 7 -7, v 4, h 7, v -4, l 7 7, l -7 7, v -4, h -7, v 4, l -7 -7" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><rect width="60" height="40" fill="transparent" stroke="black"/>');
+
     vm = new Vue({
         el: '#app',
         data: {
@@ -24,7 +19,7 @@ function main () {
                 [{content: 'pineapple', editing: false}],
             ],
             show_empty: true,
-            mouse_icon: 'toggle-bold-icon',
+            mouse_tool: 'toggle-bold-icon',
         },
         methods: {
             edit: function (cell) {

@@ -12,21 +12,15 @@
   </head>
   <body id="app" onload="main()" @mousemove="mousemove($event)">
     <ul id="toolbar">
-      <li id="toggle-bold">
-        <svg viewbox="0 0 60 40" width="60" height="40">
-          <partial name="toggle-bold-icon"></partial>
-        </svg>
-        <div>Toggle bold</div>
-      </li>
-      <li id="export-json"><div>Export to JSON</div></li>
-      <li id="export-rst"><div>Export to RST</div></li>
-      <li id="import-json"><div>Import from JSON</div></li>
-      <li v-for="tool in tools" @click="tool.select(ns)">
+      <li v-for="tool in tools" @click="select_tool(tool)">
         <svg viewbox="0 0 60 40" width="60" height="40">
           <partial :name="tool.id + '-toolbar'"></partial>
         </svg>
         <div>{{ tool.description }}</div>
       </li>
+      <li id="export-json"><div>Export to JSON</div></li>
+      <li id="export-rst"><div>Export to RST</div></li>
+      <li id="import-json"><div>Import from JSON</div></li>
     </ul>
     <div id="workspace">
       <table>
@@ -42,8 +36,7 @@
             <td></td><td></td>
             <td v-for="cell in row" @click="edit(cell)">
               <textarea v-if="cell.editing" v-model="cell.content"
-                        v-focus @blur="edit_done(cell)"
-                        placeholder="{{ show_empty ? '(empty)' : '' }}"></textarea>
+                        v-focus @blur="edit_done(cell)"></textarea>
               <div v-else v-bind:class="{'empty-prompt': show_empty}">{{ cell.content }}</div>
             </td>
             <td></td>
@@ -57,8 +50,10 @@
       <hr>
       <div id="output"></div>
     </div>
-    <svg id="mouse-icon" viewbox="0 0 60 40" width="30" height="20">
-      <partial :name="mouse_tool"></partial>
-    </svg>
+    <div id="mouse-icon">
+      <svg v-for="tool in tools" v-show="mouse_tool == tool.id" viewbox="0 0 60 40" width="30" height="20">
+        {{{ tool.icon_mouse }}}
+      </svg>
+    </div>
   </body>
 </html>

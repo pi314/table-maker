@@ -12,6 +12,7 @@ function main () {
 
     for (var i = 0; i < tools.length; i++) {
         Vue.partial(tools[i].id + '-toolbar', tools[i].icon_toolbar);
+        Vue.partial(tools[i].id + '-mouse', tools[i].icon_mouse);
     }
 
     var data = {
@@ -21,7 +22,7 @@ function main () {
             [{content: 'pineapple', editing: false}],
         ],
         show_empty: true,
-        mouse_tool: 'toggle-bold',
+        mouse_tool: '',
         tools: tools,
     };
     data.ns = data;
@@ -53,6 +54,21 @@ function main () {
                 var icon = document.getElementById('mouse-icon');
                 icon.style.top = (evt.clientY - 25) + 'px';
                 icon.style.left = (evt.clientX + 5) + 'px';
+            },
+            select_tool: function (tool) {
+                if (this.mouse_tool == tool.id) {
+                    // user click on the same tool, put it down
+                    this.mouse_tool = '';
+                    return;
+                } else {
+                    this.mouse_tool = '';
+                    if (tool.work) {
+                        // user pick up a new tool
+                        this.mouse_tool = tool.id;
+                    }
+                }
+                console.log('select_tool', tool.id);
+                tool.select(this.ns);
             },
         },
     });

@@ -8,19 +8,27 @@ function main () {
         }
     });
 
-    Vue.partial('toggle-bold-icon', '<path d="M 5 10, h 6, a 4 4 0 1 1 0 8, a 5 5 0 1 1 0 10, h -6, m 1 0, v -18, m 0 8, h 5" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 43 10, h 6, a 4 4 0 1 1 0 8, a 5 5 0 1 1 0 10, h -6, m 1 0, v -18, m 0 8, h 5" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><path d="M 19 20, l 7 -7, v 4, h 7, v -4, l 7 7, l -7 7, v -4, h -7, v 4, l -7 -7" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><rect width="60" height="40" fill="transparent" stroke="black"/>');
+    var tools = init_tools();
+
+    for (var i = 0; i < tools.length; i++) {
+        Vue.partial(tools[i].id + '-toolbar', tools[i].icon_toolbar);
+    }
+
+    var data = {
+        table: [
+            [{content: 'apple', editing: false}],
+            [{content: 'pen', editing: false}],
+            [{content: 'pineapple', editing: false}],
+        ],
+        show_empty: true,
+        mouse_tool: 'toggle-bold',
+        tools: tools,
+    };
+    data.ns = data;
 
     vm = new Vue({
         el: '#app',
-        data: {
-            table: [
-                [{content: 'apple', editing: false}],
-                [{content: 'pen', editing: false}],
-                [{content: 'pineapple', editing: false}],
-            ],
-            show_empty: true,
-            mouse_tool: 'toggle-bold-icon',
-        },
+        data: data,
         methods: {
             edit: function (cell) {
                 cell.editing = true;
@@ -40,9 +48,6 @@ function main () {
                     new_row.push({content: '', editing: false});
                 }
                 this.table.push(new_row);
-            },
-            toggle_empty: function () {
-                this.show_empty = !this.show_empty;
             },
             mousemove: function (evt) {
                 var icon = document.getElementById('mouse-icon');

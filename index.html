@@ -12,7 +12,6 @@
   </head>
   <body id="app" onload="main()" @mousemove="mousemove($event)">
     <ul id="toolbar">
-      <li id="toggle-empty" @click="toggle_empty"><div>Show/hide the (empty) indicator</div></li>
       <li id="toggle-bold">
         <svg viewbox="0 0 60 40" width="60" height="40">
           <partial name="toggle-bold-icon"></partial>
@@ -22,6 +21,12 @@
       <li id="export-json"><div>Export to JSON</div></li>
       <li id="export-rst"><div>Export to RST</div></li>
       <li id="import-json"><div>Import from JSON</div></li>
+      <li v-for="tool in tools" @click="tool.select(ns)">
+        <svg viewbox="0 0 60 40" width="60" height="40">
+          <partial :name="tool.id + '-toolbar'"></partial>
+        </svg>
+        <div>{{ tool.description }}</div>
+      </li>
     </ul>
     <div id="workspace">
       <table>

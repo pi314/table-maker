@@ -26,14 +26,18 @@
       <table>
         <tbody id="tbody">
           <tr>
-            <td v-for="i in table[0].length + 2"></td>
+            <td @click.stop="click_all"></td>
+            <td></td>
+            <td v-for="col in table[0].length"
+              @click.stop="click_col(col)"></td>
             <td @click.stop="add_col"></td>
           </tr>
           <tr>
             <td v-for="i in table[0].length + 3"></td>
           </tr>
           <tr v-for="row in table">
-            <td></td><td></td>
+            <td @click.stop="click_row($index)"></td>
+            <td></td>
             <td v-for="cell in row" @click.stop="click_cell(cell)">
               <textarea v-if="cell.editing" v-model="cell.text"
                         v-focus></textarea>

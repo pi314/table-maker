@@ -16,8 +16,11 @@ function init_tools () {
         description: 'Toggle bold',
         select: function (ns) {},
         work: function (ns, table, targets) {
+            var all_bold = targets.every(function (x) {
+                return x.bold;
+            });
             for (var i = 0; i < targets.length; i++) {
-                targets[i].bold = !targets[i].bold;
+                targets[i].bold = !all_bold;
             }
         },
         icon_toolbar: toggle_bold_icon,

@@ -60,6 +60,8 @@
             <td></td>
             <td v-for="cell in row" @click.stop="click_cell(cell)">
               <textarea v-if="cell.editing" v-model="cell.text"
+                        :class="{'bold': cell.bold, 'italic': cell.italic}"
+                        v-bind:style="{'color': cell.color, 'background': cell.background}"
                         v-focus></textarea>
               <div v-else
                    :class="{'bold': cell.bold, 'empty': show_empty, 'italic': cell.italic}"

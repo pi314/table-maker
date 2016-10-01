@@ -47,7 +47,7 @@
             <td v-for="cell in row" @click.stop="click_cell(cell)">
               <textarea v-if="cell.editing" v-model="cell.text"
                         v-focus></textarea>
-              <div v-else v-bind:class="{'bold': cell.bold, 'empty-prompt': show_empty}">{{ cell.text }}</div>
+              <div v-else :class="{'bold': cell.bold, 'empty': show_empty}">{{ cell.text }}</div>
             </td>
             <td></td>
           </tr>

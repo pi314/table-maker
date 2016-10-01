@@ -82,7 +82,7 @@ body {
 
 
 /* empty cells */
-.empty-prompt:empty::before {
+.empty:empty::before {
     content: "-";
     color: lightgray;
 }

@@ -41,7 +41,7 @@ function main () {
                 if (this.mouse_tool == null) {
                     this.edit_cell(cell);
                 } else {
-                    this.mouse_tool.work(this.ns, this.table, [cell]);
+                    this.mouse_tool.work(this.ns, [cell]);
                 }
             },
             click_col: function (col) {
@@ -53,7 +53,7 @@ function main () {
                     for (var i = 0; i < this.table.length; i++) {
                         target_cells.push(this.table[i][col]);
                     }
-                    this.mouse_tool.work(this.ns, this.table, target_cells);
+                    this.mouse_tool.work(this.ns, target_cells);
                 }
             },
             click_row: function (row) {
@@ -61,7 +61,7 @@ function main () {
                     this.edit_reset();
                     this.del_row(row);
                 } else {
-                    this.mouse_tool.work(this.ns, this.table, this.table[row]);
+                    this.mouse_tool.work(this.ns, this.table[row]);
                 }
             },
             click_all: function () {
@@ -72,7 +72,7 @@ function main () {
                     for (var i = 0; i < this.table.length; i++) {
                         target_cells = target_cells.concat(this.table[i]);
                     }
-                    this.mouse_tool.work(this.ns, this.table, target_cells);
+                    this.mouse_tool.work(this.ns, target_cells);
                 }
             },
             edit_cell: function (cell) {

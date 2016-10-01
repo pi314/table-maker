@@ -15,7 +15,7 @@ function init_tools () {
         id: 'toggle-bold',
         description: 'Toggle bold',
         select: function (ns) {},
-        work: function (ns, table, targets) {
+        work: function (ns, targets) {
             var all_bold = targets.every(function (x) {
                 return x.bold;
             });

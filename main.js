@@ -103,9 +103,14 @@ function main () {
                 this.edit_reset();
                 this.mouse_tool = null;
             },
-            add_col: function () {
+            append_col: function () {
                 for (var i = 0; i < this.table.length; i++) {
                     this.table[i].push(new_cell());
+                }
+            },
+            prepend_col: function () {
+                for (var i = 0; i < this.table.length; i++) {
+                    this.table[i].unshift(new_cell());
                 }
             },
             del_col: function (col) {
@@ -116,13 +121,21 @@ function main () {
                     this.table[i].splice(col, 1);
                 }
             },
-            add_row: function () {
+            append_row: function () {
                 var table_width = this.table[0].length;
                 var new_row = [];
                 for (var i = 0; i < table_width; i++) {
                     new_row.push(new_cell());
                 }
                 this.table.push(new_row);
+            },
+            prepend_row: function () {
+                var table_width = this.table[0].length;
+                var new_row = [];
+                for (var i = 0; i < table_width; i++) {
+                    new_row.push(new_cell());
+                }
+                this.table.unshift(new_row);
             },
             del_row: function (row) {
                 if (this.table.length == 1) {

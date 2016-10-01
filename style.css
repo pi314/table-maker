@@ -36,15 +36,14 @@ body {
 
 
 /* padding row/col */
-/* #tbody > tr:first-child > td:first-child, */
-#tbody > tr:nth-child(2) > td,
-#tbody > tr > td:nth-child(2) {
+#tbody > tr:nth-child(2) > td:nth-child(n+2),
+#tbody > tr:nth-child(n+2) > td:nth-child(2) {
     background: transparent;
     color: transparent;
 }
 
-#tbody > tr:nth-child(2) > td::before,
-#tbody > tr > td:nth-child(2)::before {
+#tbody > tr:nth-child(2) > td:nth-child(n+2)::before,
+#tbody > tr:nth-child(n+2) > td:nth-child(2)::before {
     content: "._.";
 }
 
@@ -55,9 +54,8 @@ body {
     font-family: monospace;
 }
 
-#tbody > tr:first-child > td:first-child:hover,
-#tbody > tr:first-child > td:nth-child(n+3):hover,
-#tbody > tr:nth-child(n+3) > td:first-child:hover {
+#tbody > tr:first-child > td:hover,
+#tbody > tr > td:first-child:hover {
     background: gray;
     cursor: pointer;
 }

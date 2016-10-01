@@ -93,6 +93,11 @@ body {
 }
 
 
+.italic {
+    font-style: italic;
+}
+
+
 #output {
     max-width: 100%;
     font-family: monospace;

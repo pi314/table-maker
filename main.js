@@ -17,10 +17,10 @@ function main () {
 
     var data = {
         table: [
-            [{text: 'pen', editing: false, bold: false}, {text: '', editing: false, bold: false}],
-            [{text: '', editing: false, bold: false}, {text: 'apple', editing: false, bold: false}],
-            [{text: 'pen', editing: false, bold: false}, {text: '', editing: false, bold: false}],
-            [{text: '', editing: false, bold: false}, {text: 'pineapple', editing: false, bold: false}],
+            [{text: 'pen', editing: false, bold: false, italic: false}, {text: '', editing: false, bold: false}],
+            [{text: '', editing: false, bold: false, italic: false}, {text: 'apple', editing: false, bold: false}],
+            [{text: 'pen', editing: false, bold: false, italic: false}, {text: '', editing: false, bold: false}],
+            [{text: '', editing: false, bold: false, italic: false}, {text: 'pineapple', editing: false, bold: false}],
         ],
         show_empty: true,
         mouse_tool: null,

@@ -60,31 +60,6 @@ body {
     cursor: pointer;
 }
 
-#tbody > tr:first-child > td:last-child::before {
-    /* col adder */
-    content: "+";
-}
-
-#tbody > tr:last-child > td:first-child::before {
-    /* row adder */
-    content: "+";
-}
-
-#tbody > tr:first-child > td:first-child::before {
-    /* table selector */
-    content: "*";
-}
-
-#tbody > tr:first-child > td:nth-child(n+3):not(:last-child)::before {
-    /* col selector */
-    content: "v";
-}
-
-#tbody > tr:nth-child(n+3):not(:last-child) > td:first-child::before {
-    /* row selector */
-    content: ">";
-}
-
 
 /* user table */
 #tbody > tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child) {

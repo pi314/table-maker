@@ -26,17 +26,23 @@
       <table>
         <tbody id="tbody">
           <tr>
-            <td @click.stop="click_all"></td>
+            <td @click.stop="click_all">
+                {{ mouse_tool ? '*' : '' }}
+            </td>
             <td></td>
             <td v-for="col in table[0].length"
-              @click.stop="click_col(col)"></td>
-            <td @click.stop="add_col"></td>
+                @click.stop="click_col(col)">
+                {{ mouse_tool ? 'v' : (table[0].length == 1 ? '' : 'x') }}
+            </td>
+            <td @click.stop="add_col">+</td>
           </tr>
           <tr>
             <td v-for="i in table[0].length + 3"></td>
           </tr>
           <tr v-for="row in table">
-            <td @click.stop="click_row($index)"></td>
+            <td @click.stop="click_row($index)">
+              {{ mouse_tool ? '>' : (table.length == 1 ? '' : 'x') }}
+            </td>
             <td></td>
             <td v-for="cell in row" @click.stop="click_cell(cell)">
               <textarea v-if="cell.editing" v-model="cell.text"
@@ -46,7 +52,7 @@
             <td></td>
           </tr>
           <tr>
-            <td @click.stop="add_row"></td>
+            <td @click.stop="add_row">+</td>
             <td v-for="i in table[0].length + 2"></td>
           </tr>
         </tbody>

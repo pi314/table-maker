@@ -46,7 +46,8 @@ function main () {
             },
             click_col: function (col) {
                 if (this.mouse_tool == null) {
-                    this.mouse_reset();
+                    this.edit_reset();
+                    this.del_col(col);
                 } else {
                     var target_cells = [];
                     for (var i = 0; i < this.table.length; i++) {
@@ -57,7 +58,8 @@ function main () {
             },
             click_row: function (row) {
                 if (this.mouse_tool == null) {
-                    this.mouse_reset();
+                    this.edit_reset();
+                    this.del_row(row);
                 } else {
                     this.mouse_tool.work(this.ns, this.table, this.table[row]);
                 }
@@ -88,19 +90,31 @@ function main () {
                 this.mouse_tool = null;
             },
             add_col: function () {
-                this.edit_reset();
                 for (var i = 0; i < this.table.length; i++) {
                     this.table[i].push(new_cell());
                 }
             },
+            del_col: function (col) {
+                if (this.table[0].length == 1) {
+                    return;
+                }
+                for (var i = 0; i < this.table.length; i++) {
+                    this.table[i].splice(col, 1);
+                }
+            },
             add_row: function () {
-                this.edit_reset();
                 var table_width = this.table[0].length;
                 var new_row = [];
                 for (var i = 0; i < table_width; i++) {
                     new_row.push(new_cell());
                 }
                 this.table.push(new_row);
+            },
+            del_row: function (row) {
+                if (this.table.length == 1) {
+                    return;
+                }
+                this.table.splice(row, 1);
             },
             mousemove: function (evt) {
                 var icon = document.getElementById('mouse-icon');

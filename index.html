@@ -63,7 +63,7 @@
               <div v-else
                    :class="{'bold': cell.bold, 'empty': show_empty, 'italic': cell.italic}"
                    v-bind:style="{'color': cell.color, 'background': cell.background}"
-              >{{ cell.text == '' ? '-' : cell.text }}</div>
+              >{{ cell.text == '' ? (show_empty ? '-' : '') : cell.text }}</div>
             </td>
             <td></td>
           </tr>

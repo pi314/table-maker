@@ -13,39 +13,53 @@ function main () {
     for (var i = 0; i < tools.length; i++) {
         Vue.partial(tools[i].id + '-toolbar', tools[i].icon_toolbar);
         Vue.partial(tools[i].id + '-mouse', tools[i].icon_mouse);
+        if (tools[i].options) {
+            for (var j = 0; j < tools[i].options.length; j++) {
+                for (var k = 0; k < tools[i].options[j].length; k++) {
+                    Vue.partial(
+                        tools[i].id + '-option-' + tools[i].options[j][k].value,
+                        tools[i].options[j][k].icon
+                    );
+                }
+            }
+        }
     }
+
+    var new_cell = function () {
+        return {
+            text: '',
+            editing: false,
+            bold: false,
+            color: '',
+            background: '',
+        };
+    };
 
     var data = {
         table: [
-            [{text: 'pen', editing: false, bold: false, italic: false}, {text: '', editing: false, bold: false}],
-            [{text: '', editing: false, bold: false, italic: false}, {text: 'apple', editing: false, bold: false}],
-            [{text: 'pen', editing: false, bold: false, italic: false}, {text: '', editing: false, bold: false}],
-            [{text: '', editing: false, bold: false, italic: false}, {text: 'pineapple', editing: false, bold: false}],
+            [new_cell()],
         ],
         show_empty: true,
         mouse_tool: null,
         tools: tools,
         editing_cell: null,
+        tool_values: {},
     };
     data.ns = data;
-
-    var new_cell = function () {
-        return {text: '', editing: false, bold: false};
-    };
 
     vm = new Vue({
         el: '#app',
         data: data,
         methods: {
             click_cell: function (cell) {
-                if (this.mouse_tool == null) {
+                if (this.mouse_tool === null) {
                     this.edit_cell(cell);
                 } else {
                     this.mouse_tool.work(this.ns, [cell]);
                 }
             },
             click_col: function (col) {
-                if (this.mouse_tool == null) {
+                if (this.mouse_tool === null) {
                     this.edit_reset();
                     this.del_col(col);
                 } else {
@@ -57,7 +71,7 @@ function main () {
                 }
             },
             click_row: function (row) {
-                if (this.mouse_tool == null) {
+                if (this.mouse_tool === null) {
                     this.edit_reset();
                     this.del_row(row);
                 } else {
@@ -65,7 +79,7 @@ function main () {
                 }
             },
             click_all: function () {
-                if (this.mouse_tool == null) {
+                if (this.mouse_tool === null) {
                     this.mouse_reset();
                 } else {
                     var target_cells = [];
@@ -121,17 +135,30 @@ function main () {
                 icon.style.top = (evt.clientY - 25) + 'px';
                 icon.style.left = (evt.clientX + 5) + 'px';
             },
-            select_tool: function (tool) {
+            select_tool: function (tool, value) {
                 this.edit_reset();
-                if (!tool.work || tool == this.mouse_tool) {
+                if (!tool.work) {
                     // the tool cannot be picked up
-                    // or the user selects the same tool
+                    // -> put it down
+                    this.mouse_reset();
+                } else if (tool === this.mouse_tool &&
+                          (value === undefined || value === this.mouse_tool.value)) {
+                    // the user selects the same tool (with same value if it has)
                     // -> put it down
                     this.mouse_reset();
                 } else {
+                    // pick it up
                     this.mouse_tool = tool;
                 }
-                tool.select(this.ns);
+
+                if (tool.select) {
+                    var r = tool.select(this.ns, value);
+                    if (r) {
+                        for (var key in r) {
+                            Vue.set(vm.tool_values, key, r[key]);
+                        }
+                    }
+                }
             },
         },
     });

@@ -16,11 +16,24 @@
         <svg viewbox="0 0 60 40" width="60" height="40">
           <partial :name="tool.id + '-toolbar'"></partial>
         </svg>
-        <div>{{ tool.description }}</div>
+        <span class="tool-prompt description" v-if="!tool.options">{{ tool.description }}</span>
+        <template v-else>
+          <span class="tool-prompt title">{{ tool.description }}</span>
+          <div class="tool-prompt menu">
+            <table>
+              <tbody>
+                <tr v-for="options_row in tool.options">
+                  <td v-for="tool_option in options_row" class="tool-option"
+                      @click.stop="select_tool(tool, tool_option.value)">
+                    <partial :name="tool.id + '-option-' + tool_option.value"></partial>
+                    <span class="option-prompt">{{ tool_option.description }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </template>
       </li>
-      <li id="export-json"><div>Export to JSON</div></li>
-      <li id="export-rst"><div>Export to RST</div></li>
-      <li id="import-json"><div>Import from JSON</div></li>
     </ul>
     <div id="workspace">
       <table>
@@ -47,7 +60,10 @@
             <td v-for="cell in row" @click.stop="click_cell(cell)">
               <textarea v-if="cell.editing" v-model="cell.text"
                         v-focus></textarea>
-              <div v-else :class="{'bold': cell.bold, 'empty': show_empty, 'italic': cell.italic}">{{ cell.text }}</div>
+              <div v-else
+                   :class="{'bold': cell.bold, 'empty': show_empty, 'italic': cell.italic}"
+                   v-bind:style="{'color': cell.color, 'background': cell.background}"
+              >{{ cell.text == '' ? '-' : cell.text }}</div>
             </td>
             <td></td>
           </tr>
@@ -62,7 +78,7 @@
     </div>
     <div id="mouse-icon">
       <svg v-for="tool in tools" v-show="mouse_tool.id == tool.id" viewbox="0 0 60 40" width="30" height="20">
-        {{{ tool.icon_mouse }}}
+        <partial :name="tool.id + '-mouse'"></partial>
       </svg>
     </div>
   </body>

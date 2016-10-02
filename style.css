@@ -20,6 +20,8 @@ body {
 
 #tbody > tr > td,
 #tbody > tr > td > textarea {
+    padding: 0;
+    border: solid 0 transparent;
     text-align: center;
     font-size:20px;
 }

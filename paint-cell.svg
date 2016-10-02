@@ -4,7 +4,8 @@
     xmlns="http://www.w3.org/2000/svg">
   <rect width="60" height="40" fill="transparent" stroke="black"/>
 
-  <path d="M 10 20, l 14 14, a 7 2 -45 1 0 14 -14, l -14 -14, a 7 2 -45 1 1 -14 14" fill="lightgray" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 10 20, a 7 2 -45 1 1 14 -14" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 15 25, a 7 2 -45 1 0 14 -14, l 4 4, a 7 2 -45 0 1 -14 14, l -4 -4" fill="red" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 17 20, l 14 14, a 7 2 -45 1 0 14 -14, l -14 -14, a 7 2 -45 1 1 -14 14" fill="lightgray" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 17 20, a 7 2 -45 1 1 14 -14, a 7 2 -45 1 1 -14 14" fill="#b0b0b0" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 22 25, a 7 2 -45 1 0 14 -14, l 4 4, a 7 2 -45 0 1 -14 14, l -4 -4" fill="red" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 24 17, l -6 0, l -1 1, a 15 1 -85 1 0 2 2" fill="red" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

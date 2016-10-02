@@ -31,13 +31,16 @@ function main () {
             editing: false,
             bold: false,
             color: '',
-            background: '',
+            background: '#FFFFFF',
+            hover: false,
         };
     };
 
     var data = {
         table: [
-            [new_cell()],
+            [new_cell(), new_cell(), new_cell()],
+            [new_cell(), new_cell(), new_cell()],
+            [new_cell(), new_cell(), new_cell()],
         ],
         show_empty: true,
         mouse_tool: null,
@@ -88,6 +91,32 @@ function main () {
                     }
                     this.mouse_tool.work(this.ns, target_cells);
                 }
+            },
+            hover_col: function (col, hover) {
+                if (this.mouse_tool === null) {
+                    return;
+                }
+                this.table.forEach(function (cell_row) {
+                    cell_row[col].hover = hover;
+                });
+            },
+            hover_row: function (row, hover) {
+                if (this.mouse_tool === null) {
+                    return;
+                }
+                this.table[row].forEach(function (cell) {
+                    cell.hover = hover;
+                });
+            },
+            hover_all: function (hover) {
+                if (this.mouse_tool === null) {
+                    return;
+                }
+                this.table.forEach(function (cell_row) {
+                    cell_row.forEach(function (cell) {
+                        cell.hover = hover;
+                    });
+                });
             },
             edit_cell: function (cell) {
                 this.edit_reset();
@@ -145,8 +174,8 @@ function main () {
             },
             mousemove: function (evt) {
                 var icon = document.getElementById('mouse-icon');
-                icon.style.top = (evt.clientY - 25) + 'px';
-                icon.style.left = (evt.clientX + 5) + 'px';
+                icon.style.top = (evt.clientY - 30) + 'px';
+                icon.style.left = (evt.clientX + 10) + 'px';
             },
             select_tool: function (tool, value) {
                 this.edit_reset();

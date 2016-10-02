@@ -46,7 +46,7 @@ function init_tools () {
     // {{{
     var paint_text_icon = '<rect width="60" height="40" fill="transparent" stroke="black"/><path d="M 9 6, h 24, l 1 1, v 4, l -1 1, h -8, l -1 1, v 20, l -1 1, h -4, l -1 -1, v -20, l -1 -1, h -8, l -1 -1, v -4, l 1 -1" fill="{{ tool_values.pen_color || \''+ colors[0][0][0] +'\' }}" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 34 26, l 15 -15, l 1 1, l -15 15, l -1 -1" fill="brown" stroke="brown" stroke-linecap="round" stroke-linejoin="round"/><path d="M 33 27, l 1 1, a 5 5 0 0 1 -6 3, c 3 0 2 -4 5 -4" fill="gray" stroke="gray" stroke-linecap="round" stroke-linejoin="round"/>';
     // }}}
-    var paint_text_options = [];
+    var color_options = [];
     for (var i = 0; i < colors.length; i++) {
         var tmp = [];
         for (var j = 0; j < colors[i].length; j++) {
@@ -58,13 +58,13 @@ function init_tools () {
                 'description': colors[i][j][1],
             });
         }
-        paint_text_options.push(tmp);
+        color_options.push(tmp);
     }
     var paint_text_tool = {
         id: 'paint-text',
         description: 'Change text color',
-        options: paint_text_options,
-        value: paint_text_options[0][0].value,
+        options: color_options,
+        value: color_options[0][0].value,
         select: function (ns, value) {
             if (value) {
                 this.value = value;
@@ -78,6 +78,29 @@ function init_tools () {
         },
         icon_toolbar: paint_text_icon,
         icon_mouse: paint_text_icon,
+    };
+
+    // {{{
+    var paint_cell_icon = '<rect width="60" height="40" fill="transparent" stroke="black"/><path d="M 17 20, l 14 14, a 7 2 -45 1 0 14 -14, l -14 -14, a 7 2 -45 1 1 -14 14" fill="lightgray" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 17 20, a 7 2 -45 1 1 14 -14, a 7 2 -45 1 1 -14 14" fill="#b0b0b0" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 22 25, a 7 2 -45 1 0 14 -14, l 4 4, a 7 2 -45 0 1 -14 14, l -4 -4" fill="{{ tool_values.bucket_color || \''+ colors[0][0][0] +'\' }}" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 24 17, l -6 0, l -1 1, a 15 1 -85 1 0 2 2" fill="{{ tool_values.bucket_color || \''+ colors[0][0][0] +'\' }}" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>';
+    // }}}
+    var paint_cell_tool = {
+        id: 'paint-cell',
+        description: 'Change cell color',
+        options: color_options,
+        value: color_options[0][0].value,
+        select: function (ns, value) {
+            if (value) {
+                this.value = value;
+                return {'bucket_color': value};
+            }
+        },
+        work: function (ns, targets) {
+            for (var i = 0; i < targets.length; i++) {
+                targets[i].background = this.value;
+            }
+        },
+        icon_toolbar: paint_cell_icon,
+        icon_mouse: paint_cell_icon,
     };
 
     // {{{
@@ -117,6 +140,7 @@ function init_tools () {
         toggle_empty_tool,
         toggle_bold_tool,
         paint_text_tool,
+        paint_cell_tool,
         export_json_tool,
         import_json_tool,
         export_rst_tool,

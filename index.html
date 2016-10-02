@@ -16,7 +16,8 @@
         <svg viewbox="0 0 60 40" width="60" height="40">
           <partial :name="tool.id + '-toolbar'"></partial>
         </svg>
-        <span class="tool-prompt description" v-if="!tool.options">{{ tool.description }}</span>
+        <span class="tool-prompt description"
+              v-if="!tool.options">{{ tool.description }}</span>
         <template v-else>
           <span class="tool-prompt title">{{ tool.description }}</span>
           <div class="tool-prompt menu">
@@ -39,12 +40,16 @@
       <table>
         <tbody id="tbody">
           <tr>
-            <td @click.stop="click_all">
+            <td @click.stop="click_all"
+                @mouseenter="hover_all(true)"
+                @mouseleave="hover_all(false)">
               {{ mouse_tool ? '*' : table.length + '\\' + table[0].length }}
             </td>
             <td @click.stop="prepend_col">+</td>
             <td v-for="col in table[0].length"
-                @click.stop="click_col(col)">
+                @click.stop="click_col(col)"
+                @mouseenter="hover_col(col, true)"
+                @mouseleave="hover_col(col, false)">
               {{ mouse_tool ? 'v' : (table[0].length == 1 ? '' : 'x') }}
             </td>
             <td @click.stop="append_col">+</td>
@@ -54,18 +59,30 @@
             <td v-for="i in table[0].length + 2"></td>
           </tr>
           <tr v-for="row in table">
-            <td @click.stop="click_row($index)">
+            <td @click.stop="click_row($index)"
+                @mouseenter="hover_row($index, true)"
+                @mouseleave="hover_row($index, false)">
               {{ mouse_tool ? '>' : (table.length == 1 ? '' : 'x') }}
             </td>
             <td></td>
-            <td v-for="cell in row" @click.stop="click_cell(cell)">
+            <td v-for="cell in row"
+                @click.stop="click_cell(cell)"
+                @mouseenter="cell.hover = true"
+                @mouseleave="cell.hover = false"
+                :style="{'border': 'solid 1px '+ (
+                        cell.hover ? 'black' : cell.background),
+                        'background': cell.background}">
               <textarea v-if="cell.editing" v-model="cell.text"
                         :class="{'bold': cell.bold, 'italic': cell.italic}"
-                        v-bind:style="{'color': cell.color, 'background': cell.background}"
+                        v-bind:style="{'color': cell.color,
+                                      'background': cell.background}"
                         v-focus></textarea>
               <div v-else
-                   :class="{'bold': cell.bold, 'empty': show_empty, 'italic': cell.italic}"
-                   v-bind:style="{'color': cell.color, 'background': cell.background}"
+                   :class="{'bold': cell.bold,
+                           'empty': show_empty,
+                           'italic': cell.italic}"
+                   :style="{'color': cell.color,
+                           'background': cell.background}"
               >{{ cell.text == '' ? (show_empty ? '-' : '') : cell.text }}</div>
             </td>
             <td></td>

@@ -21,9 +21,9 @@ function main () {
         });
     });
 
-    var new_cell = function () {
+    var new_cell = function (text) {
         return {
-            text: '',
+            text: text === undefined ? '' : text + '',
             editing: false,
             bold: false,
             color: '#000000',
@@ -34,15 +34,19 @@ function main () {
 
     var data = {
         table: [
-            [new_cell(), new_cell(), new_cell()],
-            [new_cell(), new_cell(), new_cell()],
-            [new_cell(), new_cell(), new_cell()],
+            // [new_cell(), new_cell(), new_cell()],
+            // [new_cell(), new_cell(), new_cell()],
+            // [new_cell(), new_cell(), new_cell()],
+            [new_cell('a'), new_cell('bb'), new_cell('ccc')],
+            [new_cell('banana'), new_cell('table'), new_cell('pen')],
+            [new_cell('pineapple'), new_cell('apple'), new_cell('data')],
         ],
         show_empty: true,
         mouse_tool: null,
         tools: tools,
         editing_cell: null,
         tool_values: {},
+        output: '',
     };
     data.ns = data;
 

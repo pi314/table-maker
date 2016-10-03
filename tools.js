@@ -5,7 +5,7 @@ function init_tools () {
     var toggle_empty_tool = {
         id: 'toggle-empty',
         description: 'Show/hide the empty cell indicator',
-        select: function (ns, option) {
+        select: function (ns, value) {
             ns.show_empty = !ns.show_empty;
         },
         icon_toolbar: toggle_empty_icon,
@@ -104,36 +104,76 @@ function init_tools () {
     };
 
     // {{{
-    var export_json_icon = '<rect width="60" height="40" fill="transparent" stroke="black"/><path d="M 8 5, v 30, h 25, v -5, m 0 -16, v -4, h -5, v -5, l 5 5, m -5 -5, h -20" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 17 14, v 16, h 20, v 5, l 17 -13, l -17 -13, v 5, h -20" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 20 17, h 4, m -1 0, v 8, a 2 2 0 1 1 -4 0" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 25 17, m 6 3, a 3 2.5 0 1 0 -3 2, a 3 2.5 0 1 1 -3 2" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 33 17, m 2 0, a 3 5 0 1 0 0 10, a 3 5 0 1 0 0 -10" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 40 17, v 10, m 0 -10, l 5 10, v -10" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>';
-    // }}}
-    var export_json_tool = {
-        id: 'export-json',
-        description: 'Export to JSON',
-        select: function (ns, option) {},
-        icon_toolbar: export_json_icon,
-        icon_mouse: export_json_icon,
-    }
-
-    // {{{
-    var import_json_icon = '<rect width="60" height="40" fill="transparent" stroke="black"/><path d="M 8 5, v 30, h 22, v -5, m 0 -18, v -2, h -5, v -5, l 5 5, m -5 -5, h -17" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 17 12, m 0 9, l 17 -11, v 3, h 20, v 16, h -20, v 3, l -17 -11" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27 16, h 4, m -1 0, v 8, a 2 2 0 1 1 -4 0" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 32 16, m 6 3, a 3 2.5 0 1 0 -3 2, a 3 2.5 0 1 1 -3 2" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 40 16, m 2 0, a 3 5 0 1 0 0 10, a 3 5 0 1 0 0 -10" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 47 16, v 10, m 0 -10, l 5 10, v -10" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>';
-    // }}}
-    var import_json_tool = {
-        id: 'import-json',
-        description: 'Import from JSON',
-        select: function (ns, option) {},
-        icon_toolbar: import_json_icon,
-        icon_mouse: import_json_icon,
-    }
-
-    // {{{
     var export_rst_icon = '<rect width="60" height="40" fill="transparent" stroke="black"/><path d="M 8 5, v 30, h 25, v -5, m 0 -16, v -4, h -5, v -5, l 5 5, m -5 -5, h -20" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 8 5, m 14 9, v 16, h 15, v 5, l 17 -13, l -17 -13, v 5, h -15" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 25 17, v 10, m 0 -10, h 3, a 3 3 0 1 1 0 6, h -3, m 3 0, l 3 4" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 33 17, m 6 3, a 3 2.5 0 1 0 -3 2, a 3 2.5 0 1 1 -3 2" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 40 17, h 6, m -3 0, v 10" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>';
     // }}}
-    var export_rst_tool = {
-        id: 'export-rst',
-        description: 'Export to RST',
-        select: function (ns, option) {},
+    var export_tool = {
+        id: 'export',
+        description: 'Export to ...',
+        options: [
+            [{
+                value: 'RST',
+                description: 'RST'
+            }],
+            [{
+                value: 'CSV',
+                description: 'CSV'
+            }],
+            [{
+                value: 'JSON',
+                description: 'JSON'
+            }],
+        ],
+        select: function (ns, value) {
+            if (value === undefined || value == 'RST') {
+                var cell_width = ns.table[0].map(function (cell, col) {
+                    return Math.max.apply(
+                        null,
+                        ns.table.map(function (cell_row) {
+                            return cell_row[col].text.length;
+                        })
+                    );
+                });
+                var hori_line = '+' + cell_width.map(function (width) {
+                    return '-'.repeat(width + 2);
+                }).join('+') + '+';
+                var padded_table = ns.table.map(function (cell_row) {
+                    return cell_row.map(function (cell, col) {
+                        return ' ' +
+                            cell.text +
+                            ' '.repeat(cell_width[col] - cell.text.length)
+                            + ' ';
+                    });
+                });
+                ns.output = padded_table.reduce(function (result, cell_row) {
+                    return result + '\n' + '|' + cell_row.join('|') + '|\n' + hori_line;
+                }, hori_line);
+            }
+        },
         icon_toolbar: export_rst_icon,
         icon_mouse: export_rst_icon,
+    }
+
+    // {{{
+    var import_csv_icon = '<rect width="60" height="40" fill="transparent" stroke="black"/><path d="M 8 5, v 30, h 22, v -5, m 0 -18, v -2, h -5, v -5, l 5 5, m -5 -5, h -17" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 17 12, m 0 9, l 17 -11, v 3, h 17, v 16, h -17, v 3, l -17 -11" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 32 18, a 3 5 0 1 0 0 6" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 34 16, m 6 3, a 3 2.5 0 1 0 -3 2, a 3 2.5 0 1 1 -3 2" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 42 16, l 2.5 10, l 2.5 -10" fill="transparent" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>';
+    // }}}
+    var import_tool = {
+        id: 'import',
+        description: 'Import from ...',
+        options: [
+            [{
+                value: 'CSV',
+                description: 'CSV'
+            }],
+            [{
+                value: 'JSON',
+                description: 'JSON'
+            }],
+        ],
+        select: function (ns, value) {
+            console.log(value);
+        },
+        icon_toolbar: import_csv_icon,
+        icon_mouse: import_csv_icon,
     }
 
     return [
@@ -141,8 +181,7 @@ function init_tools () {
         toggle_bold_tool,
         paint_text_tool,
         paint_cell_tool,
-        export_json_tool,
-        import_json_tool,
-        export_rst_tool,
+        export_tool,
+        import_tool,
     ];
 }

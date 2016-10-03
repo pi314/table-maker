@@ -10,20 +10,16 @@ function main () {
 
     var tools = init_tools();
 
-    for (var i = 0; i < tools.length; i++) {
-        Vue.partial(tools[i].id + '-toolbar', tools[i].icon_toolbar);
-        Vue.partial(tools[i].id + '-mouse', tools[i].icon_mouse);
-        if (tools[i].options) {
-            for (var j = 0; j < tools[i].options.length; j++) {
-                for (var k = 0; k < tools[i].options[j].length; k++) {
-                    Vue.partial(
-                        tools[i].id + '-option-' + tools[i].options[j][k].value,
-                        tools[i].options[j][k].icon
-                    );
-                }
-            }
-        }
-    }
+    tools.forEach(function (tool) {
+        Vue.partial(tool.id + '-toolbar', tool.icon_toolbar);
+        Vue.partial(tool.id + '-mouse', tool.icon_mouse);
+        [].concat.apply([], tool.options).forEach(function (option) {
+            Vue.partial(
+                tool.id + '-option-' + option.value,
+                option.icon
+            );
+        });
+    });
 
     var new_cell = function () {
         return {
@@ -66,11 +62,12 @@ function main () {
                     this.edit_reset();
                     this.del_col(col);
                 } else {
-                    var target_cells = [];
-                    for (var i = 0; i < this.table.length; i++) {
-                        target_cells.push(this.table[i][col]);
-                    }
-                    this.mouse_tool.work(this.ns, target_cells);
+                    this.mouse_tool.work(
+                        this.ns,
+                        this.table.map(function (elem) {
+                            return elem[col];
+                        })
+                    );
                 }
             },
             click_row: function (row) {
@@ -85,11 +82,10 @@ function main () {
                 if (this.mouse_tool === null) {
                     this.mouse_reset();
                 } else {
-                    var target_cells = [];
-                    for (var i = 0; i < this.table.length; i++) {
-                        target_cells = target_cells.concat(this.table[i]);
-                    }
-                    this.mouse_tool.work(this.ns, target_cells);
+                    this.mouse_tool.work(
+                        this.ns,
+                        [].concat.apply([], this.table)
+                    );
                 }
             },
             hover_col: function (col, hover) {
@@ -133,37 +129,35 @@ function main () {
                 this.mouse_tool = null;
             },
             append_col: function () {
-                for (var i = 0; i < this.table.length; i++) {
-                    this.table[i].push(new_cell());
-                }
+                this.table.forEach(function (cell_row) {
+                    cell_row.push(new_cell());
+                });
             },
             prepend_col: function () {
-                for (var i = 0; i < this.table.length; i++) {
-                    this.table[i].unshift(new_cell());
-                }
+                this.table.forEach(function (cell_row) {
+                    cell_row.unshift(new_cell());
+                });
             },
             del_col: function (col) {
                 if (this.table[0].length == 1) {
                     return;
                 }
-                for (var i = 0; i < this.table.length; i++) {
-                    this.table[i].splice(col, 1);
-                }
+                this.table.forEach(function (cell_row) {
+                    cell_row.splice(col, 1);
+                });
             },
             append_row: function () {
-                var table_width = this.table[0].length;
                 var new_row = [];
-                for (var i = 0; i < table_width; i++) {
+                this.table[0].forEach(function (cell) {
                     new_row.push(new_cell());
-                }
+                });
                 this.table.push(new_row);
             },
             prepend_row: function () {
-                var table_width = this.table[0].length;
                 var new_row = [];
-                for (var i = 0; i < table_width; i++) {
+                this.table[0].forEach(function (cell) {
                     new_row.push(new_cell());
-                }
+                });
                 this.table.unshift(new_row);
             },
             del_row: function (row) {

@@ -22,18 +22,46 @@ ul#toolbar > li:hover {
     cursor: pointer;
 }
 
-ul#toolbar > li > div {
+ul#toolbar > li > .menu,
+ul#toolbar > li > .tool-prompt {
     display: none;
-}
-
-ul#toolbar > li:hover > div {
-    display: block;
     position: absolute;
-    left: 65px;
+    top: 0px;
     background: white;
     border: solid 1px black;
     padding: 2px;
     box-shadow: 2px 2px 2px;
+    white-space: nowrap;
+}
+
+ul#toolbar > li:hover > .tool-prompt {
+    display: block;
+}
+
+ul#toolbar > li:hover > .description {
+    left: 65px;
+}
+
+ul#toolbar > li:hover > .menu {
+    left: 61px;
+}
+
+ul#toolbar > li:hover > .title {
+    top: -30px;
+    left: 61px;
+}
+
+ul#toolbar > li:hover > .menu > table > tbody > tr > td.tool-option {
+    border: solid 1px transparent;
+}
+
+ul#toolbar > li:hover > .menu > table > tbody > tr > td.tool-option:hover {
+    border: solid 1px black;
+    cursor: pointer;
+}
+
+.param-prompt {
+    vertical-align: top;
 }
 
 #toggle-empty {

@@ -1,104 +1,205 @@
-$(function () {
-    var colors = ['rgb(255,80,80)',
-        'rgb(255,150,0)',
-        'rgb(255,230,0)',
-        'rgb(180,255,0)',
-        'rgb(0,255,0)',
-        'rgb(0,255,180)',
-        'rgb(0,255,255)',
-        'rgb(0,128,255)',
-        'rgb(128,0,255)',
-        'rgb(255,0,255)'
-    ];
-
-    var content = [
-        [{'content': '8'}, {'content': '1'}, {'content': '6'}],
-        [{'content': '3'}, {'content': ''}, {'content': '7'}],
-        [{'content': '4'}, {'content': '9'}, {'content': '2'}],
-    ];
-
-    $(document).click(function () {
-        var editing = $('#tbody textarea');
-        console.log(editing);
-        /* write all textarea back */
-        for (var i = 0; i < editing.length; i++) {
-            var textarea = $(editing[i]);
-            var row = $(textarea.parent().parent()).prevAll().length - 2;
-            var col = $(textarea.parent()).prevAll().length - 2;
-            console.log(textarea, row, col);
-            content[row][col].content = textarea.val();
-            $(textarea.parent()).html(content[row][col].content.replace(/\n/g, '<br>'));
+function main () {
+    Vue.directive('focus', {
+        bind: function () {
+            var object = this.el;
+            Vue.nextTick(function() {
+                object.focus();
+            });
         }
-        return false;
     });
 
-    $('#tbody').on('click', 'textarea', function () {
-        /* prevent bluring on click */
-        return false;
-    });
-    $('#tbody').on('click', 'tr:nth-child(n+3):not(:last-child) > td:nth-child(n+3):not(:last-child)', function () {
-        console.log('user cell');
-        var row = $($(this).parent()).prevAll().length - 2;
-        var col = $(this).prevAll().length - 2;
-        $(this).html('<textarea>'+ content[row][col].content +'</textarea>');
-        $(this).find('textarea').focus();
-        return false;
-    });
+    var tools = init_tools();
 
-    $('#tbody').on('click', 'tr:first-child > td:last-child', function () {
-        // var col = $(this).prevAll().length - 2;
-        // console.log('col adder:', col);
-        for (var i = 0; i < content.length; i++) {
-            content[i].push({'content': ''});
-        }
-        $('#tbody > tr').append('<td></td>');
-        return false;
+    tools.forEach(function (tool) {
+        Vue.partial(tool.id + '-toolbar', tool.icon_toolbar);
+        Vue.partial(tool.id + '-mouse', tool.icon_mouse);
+        [].concat.apply([], tool.options).forEach(function (option) {
+            Vue.partial(
+                tool.id + '-option-' + option.value,
+                option.icon
+            );
+        });
     });
 
-    $('#tbody').on('click', 'tr:last-child > td:first-child', function () {
-        // var row = $($(this).parent()).prevAll().length - 2;
-        // console.log('row adder:', row);
-        var new_row = [];
-        for (var j = 0; j < content[0].length; j++) {
-            new_row.push({'content': ''});
-        }
-        content.push(new_row);
-        $('#tbody').append('<tr>'+ '<td></td>'.repeat(content[0].length + 3) +'</tr>');
-        return false;
+    var new_cell = function (text) {
+        return {
+            text: text === undefined ? '' : text + '',
+            editing: false,
+            bold: false,
+            color: '#000000',
+            background: '#FFFFFF',
+            hover: false,
+        };
+    };
+
+    var data = {
+        table: [
+            // [new_cell(), new_cell(), new_cell()],
+            // [new_cell(), new_cell(), new_cell()],
+            // [new_cell(), new_cell(), new_cell()],
+            [new_cell('a'), new_cell('bb'), new_cell('ccc')],
+            [new_cell('banana'), new_cell('table'), new_cell('pen')],
+            [new_cell('pineapple'), new_cell('apple'), new_cell('data')],
+        ],
+        show_empty: true,
+        mouse_tool: null,
+        tools: tools,
+        editing_cell: null,
+        tool_values: {},
+        output: '',
+    };
+    data.ns = data;
+
+    vm = new Vue({
+        el: '#app',
+        data: data,
+        methods: {
+            click_cell: function (cell) {
+                if (this.mouse_tool === null) {
+                    this.edit_cell(cell);
+                } else {
+                    this.mouse_tool.work(this.ns, [cell]);
+                }
+            },
+            click_col: function (col) {
+                if (this.mouse_tool === null) {
+                    this.edit_reset();
+                    this.del_col(col);
+                } else {
+                    this.mouse_tool.work(
+                        this.ns,
+                        this.table.map(function (elem) {
+                            return elem[col];
+                        })
+                    );
+                }
+            },
+            click_row: function (row) {
+                if (this.mouse_tool === null) {
+                    this.edit_reset();
+                    this.del_row(row);
+                } else {
+                    this.mouse_tool.work(this.ns, this.table[row]);
+                }
+            },
+            click_all: function () {
+                if (this.mouse_tool === null) {
+                    this.mouse_reset();
+                } else {
+                    this.mouse_tool.work(
+                        this.ns,
+                        [].concat.apply([], this.table)
+                    );
+                }
+            },
+            hover_col: function (col, hover) {
+                if (this.mouse_tool === null) {
+                    return;
+                }
+                this.table.forEach(function (cell_row) {
+                    cell_row[col].hover = hover;
+                });
+            },
+            hover_row: function (row, hover) {
+                if (this.mouse_tool === null) {
+                    return;
+                }
+                this.table[row].forEach(function (cell) {
+                    cell.hover = hover;
+                });
+            },
+            hover_all: function (hover) {
+                if (this.mouse_tool === null) {
+                    return;
+                }
+                this.table.forEach(function (cell_row) {
+                    cell_row.forEach(function (cell) {
+                        cell.hover = hover;
+                    });
+                });
+            },
+            edit_cell: function (cell) {
+                this.edit_reset();
+                this.editing_cell = cell;
+                this.editing_cell.editing = true;
+            },
+            edit_reset: function () {
+                if (this.editing_cell != null) {
+                    this.editing_cell.editing = false;
+                }
+            },
+            mouse_reset: function () {
+                this.edit_reset();
+                this.mouse_tool = null;
+            },
+            append_col: function () {
+                this.table.forEach(function (cell_row) {
+                    cell_row.push(new_cell());
+                });
+            },
+            prepend_col: function () {
+                this.table.forEach(function (cell_row) {
+                    cell_row.unshift(new_cell());
+                });
+            },
+            del_col: function (col) {
+                if (this.table[0].length == 1) {
+                    return;
+                }
+                this.table.forEach(function (cell_row) {
+                    cell_row.splice(col, 1);
+                });
+            },
+            append_row: function () {
+                var new_row = [];
+                this.table[0].forEach(function (cell) {
+                    new_row.push(new_cell());
+                });
+                this.table.push(new_row);
+            },
+            prepend_row: function () {
+                var new_row = [];
+                this.table[0].forEach(function (cell) {
+                    new_row.push(new_cell());
+                });
+                this.table.unshift(new_row);
+            },
+            del_row: function (row) {
+                if (this.table.length == 1) {
+                    return;
+                }
+                this.table.splice(row, 1);
+            },
+            mousemove: function (evt) {
+                var icon = document.getElementById('mouse-icon');
+                icon.style.top = (evt.clientY - 30) + 'px';
+                icon.style.left = (evt.clientX + 10) + 'px';
+            },
+            select_tool: function (tool, value) {
+                this.edit_reset();
+                if (!tool.work) {
+                    // the tool cannot be picked up
+                    // -> put it down
+                    this.mouse_reset();
+                } else if (tool === this.mouse_tool &&
+                          (value === undefined || value === this.mouse_tool.value)) {
+                    // the user selects the same tool (with same value if it has)
+                    // -> put it down
+                    this.mouse_reset();
+                } else {
+                    // pick it up
+                    this.mouse_tool = tool;
+                }
+
+                if (tool.select) {
+                    var r = tool.select(this.ns, value);
+                    if (r) {
+                        for (var key in r) {
+                            Vue.set(vm.tool_values, key, r[key]);
+                        }
+                    }
+                }
+            },
+        },
     });
-
-    $('#tbody').on('click', 'tr:first-child > td:nth-child(n+3):not(:last-child)', function () {
-        var col = $(this).prevAll().length - 2;
-        console.log('col selector:', col);
-        return false;
-    });
-
-    $('#tbody').on('click', 'tr:nth-child(n+3):not(:last-child) > td:first-child', function () {
-        var row = $($(this).parent()).prevAll().length - 2;
-        console.log('row selector:', row);
-        return false;
-    });
-
-    init_tools(content);
-    render(content);
-});
-
-
-function render (content) {
-    var row = content.length;
-    var col = Math.max.apply(null, content.map(function (elem) {
-        return elem.length;
-    }));
-    /* append col operator and a padding row */
-    $('#tbody').append('<tr>'+ '<td></td>'.repeat(col + 3) +'</tr>');
-    $('#tbody').append('<tr>'+ '<td></td>'.repeat(col + 3) +'</tr>');
-    for (var i = 0; i < row; i++) {
-        var tr_body = '<td></td><td></td>'; // row operator and padding col
-        for (var j = 0; j < col; j++) {
-            tr_body += '<td>'+ content[i][j].content +'</td>';
-        }
-        tr_body += '<td></td>';
-        $('#tbody').append('<tr>'+ tr_body +'</tr>');
-    }
-    $('#tbody').append('<tr>'+ '<td></td>'.repeat(col + 3) +'</tr>');
 }

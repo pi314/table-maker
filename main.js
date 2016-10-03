@@ -26,7 +26,7 @@ function main () {
             text: '',
             editing: false,
             bold: false,
-            color: '',
+            color: '#000000',
             background: '#FFFFFF',
             hover: false,
         };

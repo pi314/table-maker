@@ -94,9 +94,7 @@ body {
 
 #output {
     max-width: 100%;
-    font-family: monospace;
     font-size: 20px;
-    white-space: pre;
     overflow-wrap: break-word;
 }
 

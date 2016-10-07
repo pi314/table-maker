@@ -125,27 +125,43 @@ function init_tools () {
         ],
         select: function (ns, value) {
             if (value === undefined || value == 'RST') {
-                var cell_width = ns.table[0].map(function (cell, col) {
-                    return Math.max.apply(
-                        null,
-                        ns.table.map(function (cell_row) {
-                            return cell_row[col].text.length;
-                        })
-                    );
-                });
-                var hori_line = '+' + cell_width.map(function (width) {
-                    return '-'.repeat(width + 2);
-                }).join('+') + '+';
-                var padded_table = ns.table.map(function (cell_row) {
-                    return cell_row.map(function (cell, col) {
-                        return ' ' +
-                            cell.text +
-                            ' '.repeat(cell_width[col] - cell.text.length)
-                            + ' ';
+                var table = _.map(ns.table, function (row) {
+                    return _.map(row, function (cell) {
+                        return cell.text.split('\n');
                     });
                 });
-                ns.output = padded_table.reduce(function (result, cell_row) {
-                    return result + '\n' + '|' + cell_row.join('|') + '|\n' + hori_line;
+
+                var row_height = _.map(table, function (row) {
+                    return _.chain(row).map(function (lines) {
+                        return lines.length;
+                    }).max().value();
+                });
+
+                var col_width = _.chain(table)
+                    .unzip()
+                    .map(function (col) {
+                        return _.chain(col).flatten().map(function (line) {
+                            return line.length;
+                        }).max().value();
+                    }).value();
+
+                var hori_line = col_width.reduce(function (memo, width) {
+                    return memo + '-'.repeat(width + 2) + '+';
+                }, '+');
+
+                function ljust (text, width) {
+                    return (text + ' '.repeat(width)).slice(0, width);
+                }
+
+                ns.output = table.reduce(function (memo, row) {
+                    return memo
+                        + _.chain(row).unzip()
+                        .reduce(function (memo, partial_row) {
+                            return memo + '\n|' + _.map(partial_row, function (text, colx) {
+                                return text ? ' ' + ljust(text, col_width[colx] + 1) : ljust('', col_width[colx] + 2);
+                            }).join('|') + '|';
+                        }, '')
+                        .value() + '\n' + hori_line;
                 }, hori_line);
             }
         },

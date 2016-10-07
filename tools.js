@@ -150,7 +150,7 @@ function init_tools () {
                 }, '+');
 
                 function ljust (text, width) {
-                    return (text + ' '.repeat(width)).slice(0, width);
+                    return text + ' '.repeat(width - text.replace(/[\u4e00-\u9fcc]/g, 'aa').length);
                 }
 
                 ns.output = table.reduce(function (memo, row) {

@@ -141,7 +141,7 @@ function init_tools () {
                     .unzip()
                     .map(function (col) {
                         return _.chain(col).flatten().map(function (line) {
-                            return line.length;
+                            return line.replace(/[\u4e00-\u9fcc]/g, 'aa').length;
                         }).max().value();
                     }).value();
 

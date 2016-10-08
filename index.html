@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="toolbar.css">
     <script src="vue.min.js"></script>
     <script src="underscore-min.js"></script>
+    <script src="papaparse.min.js"></script>
     <script src="tools.js"></script>
     <script src="main.js"></script>
   </head>
@@ -95,6 +96,7 @@
       </table>
       <hr>
       <pre id="output">{{ output }}</pre>
+      <textarea id="input"></textarea>
     </div>
     <div id="mouse-icon">
       <svg v-for="tool in tools" v-show="mouse_tool.id == tool.id" viewbox="0 0 60 40" width="30" height="20">

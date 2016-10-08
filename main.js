@@ -8,7 +8,18 @@ function main () {
         }
     });
 
-    var tools = init_tools();
+    var new_cell = function (text) {
+        return {
+            text: text === undefined ? '' : text + '',
+            editing: false,
+            bold: false,
+            color: '#000000',
+            background: '#FFFFFF',
+            hover: false,
+        };
+    };
+
+    var tools = init_tools(new_cell);
 
     tools.forEach(function (tool) {
         Vue.partial(tool.id + '-toolbar', tool.icon_toolbar);
@@ -20,17 +31,6 @@ function main () {
             );
         });
     });
-
-    var new_cell = function (text) {
-        return {
-            text: text === undefined ? '' : text + '',
-            editing: false,
-            bold: false,
-            color: '#000000',
-            background: '#FFFFFF',
-            hover: false,
-        };
-    };
 
     var data = {
         table: [

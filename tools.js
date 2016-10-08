@@ -1,4 +1,4 @@
-function init_tools () {
+function init_tools (new_cell) {
     // {{{
     var toggle_empty_icon = '<rect width="60" height="40" fill="transparent" stroke="black"/><path d="M 7 7, h 4, m 10 0, h 4, m 10 0, h 4, m 10 0, h 4, m -46 10, h 4, m 10 0, h 4, m 10 0, h 4, m 10 0, h 4, m -46 10, h 4, m 10 0, h 4, m 10 0, h 4, m 10 0, h 4" fill="transparent" stroke="lightgray" stroke-linecap="round" stroke-linejoin="round"/>';
     // }}}
@@ -163,6 +163,12 @@ function init_tools () {
                         }, '')
                         .value() + '\n' + hori_line;
                 }, hori_line);
+            } else if (value == 'CSV') {
+                ns.output = Papa.unparse(_.map(ns.table, function (row) {
+                    return _.map(row, function (cell) {
+                        return cell.text;
+                    });
+                }));
             }
         },
         icon_toolbar: export_rst_icon,
@@ -187,6 +193,14 @@ function init_tools () {
         ],
         select: function (ns, value) {
             console.log(value);
+            if (value == undefined || value == 'CSV') {
+                var data = Papa.parse(document.getElementById('input').value);
+                ns.table = _.map(data.data, function (row) {
+                    return _.map(row, function (text) {
+                        return new_cell(text);
+                    });
+                });
+            }
         },
         icon_toolbar: import_csv_icon,
         icon_mouse: import_csv_icon,

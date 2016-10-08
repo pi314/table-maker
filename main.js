@@ -34,12 +34,9 @@ function main () {
 
     var data = {
         table: [
-            // [new_cell(), new_cell(), new_cell()],
-            // [new_cell(), new_cell(), new_cell()],
-            // [new_cell(), new_cell(), new_cell()],
-            [new_cell('foo'), new_cell('bar'), new_cell('蘋果')],
-            [new_cell('筆'), new_cell('table'), new_cell('pen')],
-            [new_cell('pineapple'), new_cell('apple\napple\napple'), new_cell('data')],
+            [new_cell(), new_cell(), new_cell()],
+            [new_cell(), new_cell(), new_cell()],
+            [new_cell(), new_cell(), new_cell()],
         ],
         show_empty: true,
         mouse_tool: null,

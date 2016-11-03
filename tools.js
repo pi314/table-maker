@@ -31,17 +31,15 @@ function init_tools (new_cell) {
     };
 
     var colors = [
-        [['#FFA27F', 'My Red'],         ['#FF4500', 'Sunset Orange'],   ['#800000', 'Maroon']],
-        [['#FFC57F', 'My Orange'],      ['#FF8C00', 'Dark Orange'],     ['#8B4500', 'Dark Orange 4']],
-        [['#FFEB7F', 'My Yellow'],      ['#FFD700', 'Gold Yellow'],     ['#8B7500', 'Gold 4']],
-        [['#BDFD7F', 'My Green'],       ['#7CFC00', 'Lawn Green'],      ['#008B00', 'Green 4']],
-        [['#7FFFFF', 'My Cyan'],        ['#00FFFF', 'Aqua'],            ['#008B8B', 'Cyan 4']],
-        [['#8EC7FF', 'My Blue'],        ['#1E90FF', 'Dodger Blue'],     ['#104E8B', 'Dodger Blue 4']],
-        [['#BF7FFF', 'My Indigo'],      ['#8000FF', 'Electric Indigo'], ['#4B0082', 'Indigo']],
-        [['#DF9EFF', 'My Orchid'],      ['#BF3EFF', 'Dark Orchid 1'],   ['#68228B', 'Dark Orchid 4']],
-        [['#FF7FFF', 'My Magenta'],     ['#FF00FF', 'Fuchsia'],         ['#8B008B', 'Magenta 4']],
-        [['#FFFFFF', 'White'],          ['#E9E9E9', 'My Gray'],         ['#D3D3D3', 'Light gray']],
-        [['#696969', 'My Dark Gray'],   ['#808080', 'Gray'],            ['#000000', 'Black']],
+        [['#FFFFFF', 'White'], ['#FFECE6', 'Toothpaste Pink'],    ['#FFA280', 'My Red'],     ['#FF4500', 'Sunset Orange'],   ['#800000', 'Maroon']],
+        [['#DFDFDF', '87%'],   ['#FFE8CC', 'Toothpaste Orange'],  ['#FFC680', 'My Orange'],  ['#FF8C00', 'Dark Orange'],     ['#8B4500', 'Dark Orange 4']],
+        [['#BFBFBF', '75%'],   ['#FFF7CC', 'Toothpaste Yellow'],  ['#FFEC80', 'My Yellow'],  ['#FFD700', 'Gold Yellow'],     ['#8B7500', 'Gold 4']],
+        [['#9F9F9F', '62%'],   ['#E6FFCC', 'Toothpaste Green'],   ['#BFFF80', 'My Green'],   ['#7CFC00', 'Lawn Green'],      ['#008B00', 'Green 4']],
+        [['#808080', '50%'],   ['#CCFFFF', 'Toothpaste Cyan'],    ['#99FFFF', 'My Cyan'],    ['#00FFFF', 'Aqua'],            ['#008B8B', 'Cyan 4']],
+        [['#606060', '37%'],   ['#CCE6FF', 'Toothpaste Blue'],    ['#80BFFF', 'My Blue'],    ['#1E90FF', 'Dodger Blue'],     ['#104E8B', 'Dodger Blue 4']],
+        [['#404040', '25%'],   ['#E6CCFF', 'Toothpaste Indigo'],  ['#BF80FF', 'My Indigo'],  ['#8000FF', 'Electric Indigo'], ['#4B0082', 'Indigo']],
+        [['#202020', '12%'],   ['#EECCFF', 'Toothpaste Orchid'],  ['#DD99FF', 'My Orchid'],  ['#BF3EFF', 'Dark Orchid 1'],   ['#68228B', 'Dark Orchid 4']],
+        [['#000000', 'Black'], ['#FFCCFF', 'Toothpaste Magenta'], ['#FF80FF', 'My Magenta'], ['#FF00FF', 'Fuchsia'],         ['#8B008B', 'Magenta 4']],
     ];
     // {{{
     var paint_text_icon = '<rect width="60" height="40" fill="transparent" stroke="black"/><path d="M 9 6, h 24, l 1 1, v 4, l -1 1, h -8, l -1 1, v 20, l -1 1, h -4, l -1 -1, v -20, l -1 -1, h -8, l -1 -1, v -4, l 1 -1" fill="{{ tool_values.pen_color || \''+ colors[0][0][0] +'\' }}" stroke="black" stroke-linecap="round" stroke-linejoin="round"/><path d="M 34 26, l 15 -15, l 1 1, l -15 15, l -1 -1" fill="brown" stroke="brown" stroke-linecap="round" stroke-linejoin="round"/><path d="M 33 27, l 1 1, a 5 5 0 0 1 -6 3, c 3 0 2 -4 5 -4" fill="gray" stroke="gray" stroke-linecap="round" stroke-linejoin="round"/>';
